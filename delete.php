@@ -1,5 +1,4 @@
 <?php
-
 $conn = new mysqli("127.0.0.1", "root", "", "student_db");
 
 if ($conn->connect_error) {
@@ -8,9 +7,17 @@ if ($conn->connect_error) {
 
 $id = $_GET['id'];
 
-$conn->query("DELETE FROM students WHERE id=$id");
+$sql = "DELETE FROM students WHERE id=$id";
 
-header("Location: index.php");
-exit;
+if ($conn->query($sql)) {
 
-?>
+    header("Location: index.php");
+    exit();
+
+} else {
+
+    echo "Error deleting student: " . $conn->error;
+
+}
+
+?>>
